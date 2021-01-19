@@ -10,7 +10,7 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
 
 
-add_executable(camera_test ../main_nano.cpp)
+add_executable(camera_test ../main_nano.cpp .. mylib.cpp)
 
 target_link_libraries(camera_test Qt5::Widgets)
 target_link_libraries(camera_test Qt5::Core)

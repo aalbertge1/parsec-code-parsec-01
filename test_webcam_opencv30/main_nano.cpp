@@ -1,6 +1,5 @@
-#include "opencv2/opencv.hpp"
 
-
+#include "mylib.h"
 using namespace cv;
 
 std::string gstreamer_pipeline (int capture_width, int capture_height, int display_width, int display_height, int framerate, int flip_method) {
@@ -35,23 +34,46 @@ cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
 	if(!cap.isOpened())  // check if we succeeded
 		return -1;
 
-
-
 	while(1){
 
-	    Mat frame;
-	    // Capture frame-by-frame
-	    cap >> frame;
+	    Mat frame, out;
 
-	    // If the frame is empty, break immediately
-	    if (frame.empty())
-	      break;
-
-	    // Display the resulting frame
-	    imshow( "Frame", frame );
-
-	    // Press  ESC on keyboard to exit
 	    char c=(char)waitKey(25);
+	    if(c=='a')
+	    	{ 
+		 while (1){
+		 cap >> frame;
+	    	 if (frame.empty())
+	      	 break;
+		 out = seuillage_cv(frame);
+		 imshow( "Frame", out );
+		 c =(char)waitKey(25);
+	         if(c==27)
+		 break;}
+		}
+	    else if(c=='z')
+	    	{
+		 while (1){
+		 cap >> frame;
+	    	 if (frame.empty())
+	      	 break;
+		 out = bandw_cv(frame);
+		 imshow( "Frame", out );
+		 c=(char)waitKey(25);
+	         if(c==27)
+		 break;}
+		}
+	     else
+		{
+		 cap >> frame;
+	    	 if (frame.empty())
+	      	 break;
+		 imshow( "Frame", frame);
+		}
+
+
+	    // Press  ESC on keyboard to exit           
+	    c=(char)waitKey(25);
 	    if(c==27)
 	      break;
 	  }
@@ -64,3 +86,28 @@ cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
 
 	  return 0;
 }
+
+
+/*	    sobel
+	    cvtColor(frame, gray, CV_BGR2GRAY);
+
+	    for (int j=0; j<frame.cols; j++){
+	    for (int i=0; i<frame.rows; i++){	
+		short gx, gy;
+		gx = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i, j-1) + gray.at<uchar>(i+1, j-1)
+		   - gray.at<uchar>(i-1, j+1) - 2*gray.at<uchar>(i, j+1) - gray.at<uchar>(i+1, j+1);
+		gy = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i-1, j) + gray.at<uchar>(i-1, j+1)
+		   - gray.at<uchar>(i+1, j-1) - 2*gray.at<uchar>(i+1, j) - gray.at<uchar>(i+1, j+1);
+
+		out = (uchar) abs (gx + gy);
+		}}
+*/
+
+
+
+
+
+
+
+
+
