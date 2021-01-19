@@ -16,7 +16,7 @@
 #include "mylib.h"
 
 using namespace cv;
-Mat bandw_cv(Mat din){
+Mat detect_cv(Mat din){
 		Mat mout, ingray;
 		cvtColor(din, ingray, CV_BGR2GRAY);
 		mout.create(din.rows, din.cols, CV_8UC1);
@@ -79,6 +79,7 @@ Mat glitch(Mat zin){
 Mat sobel(Mat sin){
 	    Mat gray, dout;
 	    cvtColor(sin, gray, CV_BGR2GRAY);
+	    dout.create(sin.rows, sin.cols,CV_8UC1);
 
 	    for (int j=0; j<sin.cols; j++){
 	    for (int i=0; i<sin.rows; i++){	
@@ -88,11 +89,10 @@ Mat sobel(Mat sin){
 		gy = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i-1, j) + gray.at<uchar>(i-1, j+1)
 		   - gray.at<uchar>(i+1, j-1) - 2*gray.at<uchar>(i+1, j) - gray.at<uchar>(i+1, j+1);
 
-		dout = (uchar) abs (gx + gy);
+		dout.at<uchar>(i, j) = (uchar) abs (gx + gy);
 		}}
 	return dout;
 }
-
 
 
 

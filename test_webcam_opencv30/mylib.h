@@ -10,7 +10,7 @@
 
 // Prototype
 using namespace cv;
-Mat bandw_cv(Mat din);
+Mat detect_cv(Mat din);
 Mat seuillage_cv(Mat vin);
 Mat moyenne(Mat rin);
 Mat glitch(Mat zin);

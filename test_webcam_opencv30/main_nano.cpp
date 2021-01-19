@@ -57,7 +57,7 @@ cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
 		 cap >> frame;
 	    	 if (frame.empty())
 	      	 break;
-		 out = bandw_cv(frame);
+		 out = detect_cv(frame);
 		 imshow( "Frame", out );
 		 c=(char)waitKey(25);
 	         if(c==27)
@@ -124,20 +124,6 @@ cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
 }
 
 
-/*	    sobel
-	    cvtColor(frame, gray, CV_BGR2GRAY);
-
-	    for (int j=0; j<frame.cols; j++){
-	    for (int i=0; i<frame.rows; i++){	
-		short gx, gy;
-		gx = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i, j-1) + gray.at<uchar>(i+1, j-1)
-		   - gray.at<uchar>(i-1, j+1) - 2*gray.at<uchar>(i, j+1) - gray.at<uchar>(i+1, j+1);
-		gy = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i-1, j) + gray.at<uchar>(i-1, j+1)
-		   - gray.at<uchar>(i+1, j-1) - 2*gray.at<uchar>(i+1, j) - gray.at<uchar>(i+1, j+1);
-
-		out = (uchar) abs (gx + gy);
-		}}
-*/
 
 
 
