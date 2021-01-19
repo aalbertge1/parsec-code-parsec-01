@@ -36,7 +36,7 @@ Mat bandw_cv(Mat din){
 
 Mat seuillage_cv(Mat vin){
 		Mat imout;
-		imout.create(vin.cols,vin.cols,CV_8UC3);
+		imout.create(vin.rows,vin.cols,CV_8UC3);
 	    	for (int j=0;j<vin.cols;j++){
 		for (int i=0;i<vin.rows;i++){
 			uchar r,v,b;
@@ -47,7 +47,7 @@ Mat seuillage_cv(Mat vin){
 			r=vin.at<Vec3b>(i,j)[2];
 		  
 		  nr = r/sqrt(r*r + v*v + b*b);
-		  if(nr > 0.7){(imout.at<Vec3b>(i,j)[1] = r);}else{(imout.at<Vec3b>(i,j)[1] = v);}
+		  if(nr > 0.8){(imout.at<Vec3b>(i,j)[1] = r);}else{(imout.at<Vec3b>(i,j)[1] = v);}
 		  imout.at<Vec3b>(i,j)[2] = r;
 		  imout.at<Vec3b>(i,j)[0] = b;
 				}
@@ -75,6 +75,24 @@ Mat glitch(Mat zin){
 		}
 	return gout;
 }
+
+Mat sobel(Mat sin){
+	    Mat gray, dout;
+	    cvtColor(sin, gray, CV_BGR2GRAY);
+
+	    for (int j=0; j<sin.cols; j++){
+	    for (int i=0; i<sin.rows; i++){	
+		short gx, gy;
+		gx = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i, j-1) + gray.at<uchar>(i+1, j-1)
+		   - gray.at<uchar>(i-1, j+1) - 2*gray.at<uchar>(i, j+1) - gray.at<uchar>(i+1, j+1);
+		gy = gray.at<uchar>(i-1, j-1) + 2*gray.at<uchar>(i-1, j) + gray.at<uchar>(i-1, j+1)
+		   - gray.at<uchar>(i+1, j-1) - 2*gray.at<uchar>(i+1, j) - gray.at<uchar>(i+1, j+1);
+
+		dout = (uchar) abs (gx + gy);
+		}}
+	return dout;
+}
+
 
 
 

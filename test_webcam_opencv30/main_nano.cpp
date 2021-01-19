@@ -63,6 +63,42 @@ cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
 	         if(c==27)
 		 break;}
 		}
+	    else if(c=='e')
+	    	{
+		 while (1){
+		 cap >> frame;
+	    	 if (frame.empty())
+	      	 break;
+		 out = moyenne(frame);
+		 imshow( "Frame", out );
+		 c=(char)waitKey(25);
+	         if(c==27)
+		 break;}
+		}
+	    else if(c=='r')
+	    	{
+		 while (1){
+		 cap >> frame;
+	    	 if (frame.empty())
+	      	 break;
+		 out = glitch(frame);
+		 imshow( "Frame", out );
+		 c=(char)waitKey(25);
+	         if(c==27)
+		 break;}
+		}
+	    else if(c=='t')
+	    	{
+		 while (1){
+		 cap >> frame;
+	    	 if (frame.empty())
+	      	 break;
+		 out = sobel(frame);
+		 imshow( "Frame", out );
+		 c=(char)waitKey(25);
+	         if(c==27)
+		 break;}
+		}
 	     else
 		{
 		 cap >> frame;
